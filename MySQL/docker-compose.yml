@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  mysql_db:
+    image: mysql:8.0
+    container_name: mysql_server
+
+    restart: unless-stopped
+  
+    ports:
+      - "3306:3306"
+
+    volumes:
+      - mysql-data:/var/lib/mysql
+    environment:
+
+      MYSQL_ROOT_PASSWORD: sua_senha_root_super_forte
+
+      MYSQL_DATABASE: meu_app_db
+ 
+      MYSQL_USER: dba
+
+      MYSQL_PASSWORD: sua_senha_dba_super_forte
+volumes:
+  mysql-data: {}
