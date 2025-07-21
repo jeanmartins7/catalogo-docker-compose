@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  netdata:
+    image: netdata/netdata:latest
+    container_name: netdata_monitor
+    ports:
+      - "19999:19999"
+    restart: unless-stopped
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - apparmor:unconfined
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /etc/os-release:/host/etc/os-release:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - netdata-config:/etc/netdata
+      - netdata-cache:/var/cache/netdata
+    environment:
+      - NETDATA_HOSTNAME=YOUR_HOSTNAME
+volumes:
+  netdata-config: {}
+  netdata-cache: {}
