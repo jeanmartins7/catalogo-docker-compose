@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+
+  java_webserver:
+
+    image: tomcat:10.1-jdk17
+    container_name: tomcat_webserver
+
+    ports:
+      - "8080:8080" 
+    volumes:
+      - ./webapps:/usr/local/tomcat/webapps/
+    restart: unless-stopped
