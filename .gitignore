@@ -1,3 +1,4 @@
 *Identifier
 **/.env
-**/postgres-data
+**/*-data
+**/*_data
