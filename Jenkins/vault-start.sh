@@ -18,16 +18,13 @@ fi
 
 echo "🔐 [VAULT] Buscando segredos em: $VAULT_PATH"
 
-# 1. Busca o JSON
 JSON_RESPONSE=$(curl -s --header "X-Vault-Token: ${VAULT_TOKEN}" "${VAULT_ADDR}/v1/${VAULT_PATH}")
 
-# Verifica erros na resposta (como 404 ou Permission Denied)
 if echo "$JSON_RESPONSE" | grep -q "errors"; then
     echo "❌ ERRO no Vault: $(echo $JSON_RESPONSE | jq -r '.errors[0]')"
     exit 1
 fi
 
-# 2. Extrai os dados (O seu JSON tem a estrutura data -> data)
 DATA_BLOCK=$(echo $JSON_RESPONSE | jq -r '.data.data')
 
 if [ "$DATA_BLOCK" == "null" ]; then
